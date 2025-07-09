@@ -145,6 +145,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get install -yq --no-install-recommends \
       ca-certificates \
       tzdata \
+      curl && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 COPY --from=builder /app/artifact/stalwart /usr/local/bin
 COPY --from=builder /app/artifact/stalwart-cli /usr/local/bin
@@ -160,7 +161,7 @@ ENTRYPOINT ["/bin/sh", "/usr/local/bin/entrypoint.sh"]
 # *****************
 FROM --platform=$TARGETPLATFORM alpine AS musl
 WORKDIR /opt/stalwart
-RUN apk add --update --no-cache ca-certificates tzdata \
+RUN apk add --update --no-cache ca-certificates tzdata curl \
     && rm -rf /var/cache/apk/*
 COPY --from=builder /app/artifact/stalwart /usr/local/bin
 COPY --from=builder /app/artifact/stalwart-cli /usr/local/bin

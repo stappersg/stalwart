@@ -34,6 +34,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install -yq --no-install-recommends \
       ca-certificates \
+      curl && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 COPY --from=builder /output/stalwart /usr/local/bin
 COPY --from=builder /output/stalwart-cli /usr/local/bin
